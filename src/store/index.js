@@ -59,7 +59,7 @@ export default new Vuex.Store({
       let url = context.state.apiBase+'/libros/update';
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
-      headers.append('token', context.state.token.toString());
+      headers.append('token', context.state.token);
       const config = {
         method: 'PUT',
         body: JSON.stringify(libro),
@@ -68,8 +68,8 @@ export default new Vuex.Store({
       fetch(url, config)
       .then(res => res.json())
       .then(data =>{
-        alert(data.message);
         context.commit('getLibros');
+        alert(data.message);
       })
       .catch(error => {
         alert('Ha ocurrido un error '+ error.message);
@@ -109,6 +109,7 @@ export default new Vuex.Store({
       .then(res => res.json())
       .then(result => {
         alert(result.message);
+        context.commit('getLibros');
       })
       .catch(error => {
         alert(error.message);
